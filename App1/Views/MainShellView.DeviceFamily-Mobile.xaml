@@ -1,0 +1,110 @@
+﻿<Page
+    x:Class="App1.Views.MainShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:App1.Converters"
+    xmlns:utils="using:App1.Utils"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <utils:GlobalResources x:Key="GlobalResources"/>
+        <converters:NullableBooleanToBooleanConverter x:Key="NullableBooleanToBooleanConverter" />
+    </Page.Resources>
+
+
+    <Grid Background="{StaticResource MainAccessBrush}">
+        <SplitView x:Name="mainSplitView"
+            CompactPaneLength="200"
+            DisplayMode="Overlay"
+            Foreground="#FFDA5D5D"
+            IsPaneOpen="{x:Bind hamburgButton.IsChecked, Mode=TwoWay, Converter={StaticResource NullableBooleanToBooleanConverter}}"
+            OpenPaneLength="200"
+            PaneBackground="{StaticResource MainAccessBrush}">
+
+            <SplitView.Pane>
+                <Grid x:Name="leftPanel">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListView x:Name="mainListView"
+                        Grid.Row="1"
+                        Margin="0,25,0,0"
+                        VerticalAlignment="Top"
+                        IsItemClickEnabled="True"
+                        ItemClick="mainListView_OnItemClick"
+                        ItemsSource="{Binding Source={StaticResource GlobalResources},
+                                            Path=MainTitles}"
+                        SelectedIndex="0"
+                          ItemContainerStyle="{StaticResource MainListViewItemStyle}"
+                        >
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,8" Orientation="Horizontal">
+                                    <SymbolIcon Width="20"
+                                        Height="20"
+                                        Foreground="{StaticResource MainIconForeground}"
+                                        Symbol="{Binding SymbolIcon}" />
+                                    <TextBlock Margin="12,5"
+                                        FontSize="20"
+                                        Foreground="{StaticResource MainIconForeground}"
+                                        Text="{Binding Title}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+
+            <Grid x:Name="LayoutRoot">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MaxWidth="500" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="centerPanel"
+                Grid.Column="1"
+                Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Frame Grid.Row="1"
+                          Loaded="CenterFrame_OnLoaded"
+                                DataContext="{x:Null}"
+                                >
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition/>
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>
+
+                    <Grid Grid.Row="0" Height="48" Background="{StaticResource MainAccessBrush}">
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="hamburgButton"
+                                    Content="&#xE700;"
+                                    Foreground="{StaticResource MainIconForeground}"
+                                    VerticalContentAlignment="Center"
+                                    IsChecked="False"
+                                    Style="{StaticResource IconToggleButtonStyle}" />
+                            <TextBlock Foreground="{StaticResource MainIconForeground}"
+                                Style="{StaticResource AppTitleTextBlockStyle}"
+                                Text="{Binding ElementName=mainListView,
+                                                Path=SelectedItem.Title}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </SplitView>
+    </Grid>
+
+</Page>

@@ -1,0 +1,33 @@
+﻿<Application x:Class="App1.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/CommonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+                <SolidColorBrush x:Key="MainAccessBrush" Color="#292f38" />
+                <!--                    <SolidColorBrush x:Key="MainAccessBrush" Color="#FF2D2D30" />-->
+                <SolidColorBrush x:Key="LightMainAccessBrush" Color="#3f444c" />
+                <SolidColorBrush x:Key="DarkMainAccessBrush" Color="#252a32" />
+
+                <SolidColorBrush x:Key="MainTextColorBrush" Color="#FFDDDDDD" />
+
+                <SolidColorBrush x:Key="MainIconForeground" Color="#FFDDDDDD" />
+
+                <!--文本-->
+                <SolidColorBrush x:Key="TextColorBrush" Color="#FFb5b5b5" />
+                <SolidColorBrush x:Key="TextSubColorBrush" Color="#FF7C808B" />
+                <SolidColorBrush x:Key="TextLowColorBrush" Color="#FF555B66" />
+
+
+                <!-- 背景-->
+                <SolidColorBrush x:Key="MainBackgroundBrush" Color="#FF242931" />
+
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
